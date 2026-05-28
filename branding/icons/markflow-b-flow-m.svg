@@ -1,0 +1,29 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="cardShadow" filterUnits="userSpaceOnUse" x="70" y="70" width="884" height="884" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="34" flood-color="#16223f" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="-6" stdDeviation="10" flood-color="#ffffff" flood-opacity="0.92"/>
+    </filter>
+    <filter id="markShadow" filterUnits="userSpaceOnUse" x="150" y="160" width="724" height="704" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="30" stdDeviation="34" flood-color="#416dff" flood-opacity="0.24"/>
+    </filter>
+    <linearGradient id="flow" x1="188" y1="725" x2="759" y2="244" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35a7ff"/>
+      <stop offset="0.45" stop-color="#6955ff"/>
+      <stop offset="0.72" stop-color="#20d5a4"/>
+      <stop offset="1" stop-color="#ff7a54"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="359" y1="258" x2="678" y2="688" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef3ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="#ffffff"/>
+  <rect x="128" y="128" width="768" height="768" rx="176" fill="#fbfbfd" filter="url(#cardShadow)"/>
+  <g filter="url(#markShadow)">
+    <path d="M232 681c140-9 151-317 281-322 125-5 145 298 280 289" stroke="url(#flow)" stroke-width="92" stroke-linecap="round"/>
+    <path d="M367 672V353c0-42 34-76 76-76h154l142 142v253c0 42-34 76-76 76H443c-42 0-76-34-76-76Z" fill="url(#paper)" fill-opacity="0.88"/>
+    <path d="M598 278v102c0 24 19 43 43 43h98" fill="#dfe8ff"/>
+    <path d="M441 590l62-168 61 122 61-122 62 168" stroke="#161a21" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

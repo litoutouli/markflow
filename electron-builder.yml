@@ -1,0 +1,13 @@
+appId: com.markflow.desktop
+productName: MarkFlow
+directories:
+  output: release
+files:
+  - desktop/electron/**
+  - apps/web/dist/**
+  - package.json
+mac:
+  category: public.app-category.productivity
+  target:
+    - dir
+  icon: desktop/assets/MarkFlow.icns

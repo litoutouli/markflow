@@ -1,0 +1,28 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="cardShadow" filterUnits="userSpaceOnUse" x="70" y="70" width="884" height="884" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#202333" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="-6" stdDeviation="10" flood-color="#ffffff" flood-opacity="0.92"/>
+    </filter>
+    <filter id="paperShadow" filterUnits="userSpaceOnUse" x="200" y="175" width="636" height="680" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="30" stdDeviation="32" flood-color="#556fff" flood-opacity="0.2"/>
+    </filter>
+    <linearGradient id="paper" x1="299" y1="220" x2="745" y2="793" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#f4f8ff"/>
+      <stop offset="1" stop-color="#e7efff"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="629" y1="218" x2="769" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8eeff"/>
+      <stop offset="1" stop-color="#cbd9ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="#ffffff"/>
+  <rect x="128" y="128" width="768" height="768" rx="176" fill="#fbfbfd" filter="url(#cardShadow)"/>
+  <g filter="url(#paperShadow)">
+    <path d="M274 314c0-58 47-105 105-105h250l138 138v355c0 58-47 105-105 105H379c-58 0-105-47-105-105V314Z" fill="url(#paper)"/>
+    <path d="M629 209v104c0 38 31 69 69 69h69L629 209Z" fill="url(#fold)"/>
+    <path d="M356 399h115M356 474h310M356 549h310M356 624h240" stroke="#dfe7f2" stroke-width="24" stroke-linecap="round"/>
+    <path d="M363 658l112-262 89 158 90-158 112 262" stroke="#171b21" stroke-width="68" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

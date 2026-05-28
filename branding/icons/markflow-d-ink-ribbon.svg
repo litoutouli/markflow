@@ -1,0 +1,29 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="cardShadow" filterUnits="userSpaceOnUse" x="70" y="70" width="884" height="884" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="34" flood-color="#231a22" flood-opacity="0.17"/>
+      <feDropShadow dx="0" dy="-6" stdDeviation="10" flood-color="#ffffff" flood-opacity="0.92"/>
+    </filter>
+    <filter id="markShadow" filterUnits="userSpaceOnUse" x="170" y="150" width="684" height="734" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="30" stdDeviation="34" flood-color="#7b46ff" flood-opacity="0.26"/>
+    </filter>
+    <linearGradient id="ink" x1="306" y1="219" x2="737" y2="748" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c9a7ff"/>
+      <stop offset="0.42" stop-color="#7f55ff"/>
+      <stop offset="0.72" stop-color="#245bff"/>
+      <stop offset="1" stop-color="#19ccb0"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(421 286) rotate(78) scale(259 198)">
+      <stop stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="#ffffff"/>
+  <rect x="128" y="128" width="768" height="768" rx="176" fill="#fbfbfd" filter="url(#cardShadow)"/>
+  <g filter="url(#markShadow)">
+    <path d="M601 202c91 123 172 271 154 397-17 119-113 206-237 206-136 0-246-99-246-236 0-116 79-199 157-272 55-52 110-96 132-124 11-13 29-9 40 29Z" fill="url(#ink)"/>
+    <path d="M601 202c91 123 172 271 154 397-17 119-113 206-237 206-136 0-246-99-246-236 0-116 79-199 157-272 55-52 110-96 132-124 11-13 29-9 40 29Z" fill="url(#shine)"/>
+    <path d="M380 600c55-86 110-129 165-129 54 0 80 43 119 129" stroke="white" stroke-width="54" stroke-linecap="round" stroke-linejoin="round" opacity="0.94"/>
+    <path d="M382 600c-3-96 13-171 62-225" stroke="white" stroke-width="54" stroke-linecap="round" opacity="0.94"/>
+  </g>
+</svg>
