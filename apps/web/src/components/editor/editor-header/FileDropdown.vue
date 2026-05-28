@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Download, FileCode, FileCog, FileText, FolderKanban, FolderOpen, Package, Upload } from 'lucide-vue-next'
+import { Download, FileCode, FileCog, FileText, FolderKanban, FolderOpen, Package, Plus, Upload } from 'lucide-vue-next'
 import { useEditorStore } from '@/stores/editor'
 import { useExportStore } from '@/stores/export'
 import { useUIStore } from '@/stores/ui'
@@ -18,7 +18,7 @@ const editorStore = useEditorStore()
 const exportStore = useExportStore()
 const uiStore = useUIStore()
 
-const { isOpenPostSlider, isOpenFolderPanel } = storeToRefs(uiStore)
+const { isOpenPostSlider, isOpenFolderPanel, isOpenAddPostDialog } = storeToRefs(uiStore)
 const { toggleShowTemplateDialog, toggleShowImportMdDialog } = uiStore
 
 function openEditorStateDialog() {
@@ -58,6 +58,14 @@ function exportEditorContent2PDF() {
       文件
     </MenubarSubTrigger>
     <MenubarSubContent class="w-56">
+      <!-- 新增 Markdown -->
+      <MenubarItem @click="isOpenAddPostDialog = true">
+        <Plus class="mr-2 size-4" />
+        新增 Markdown
+      </MenubarItem>
+
+      <MenubarSeparator />
+
       <!-- 本地文件夹 -->
       <MenubarItem @click="isOpenFolderPanel = !isOpenFolderPanel">
         <FolderOpen class="mr-2 size-4" />
@@ -142,6 +150,14 @@ function exportEditorContent2PDF() {
       文件
     </MenubarTrigger>
     <MenubarContent class="w-56" align="start">
+      <!-- 新增 Markdown -->
+      <MenubarItem @click="isOpenAddPostDialog = true">
+        <Plus class="mr-2 size-4" />
+        新增 Markdown
+      </MenubarItem>
+
+      <MenubarSeparator />
+
       <!-- 本地文件夹 -->
       <MenubarItem @click="isOpenFolderPanel = !isOpenFolderPanel">
         <FolderOpen class="mr-2 size-4" />

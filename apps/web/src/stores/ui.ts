@@ -26,7 +26,7 @@ export const useUIStore = defineStore(`ui`, () => {
   const isOpenRightSlider = store.reactive(addPrefix(`is_open_right_slider`), false)
 
   // 是否打开文章列表滑块
-  const isOpenPostSlider = store.reactive(addPrefix(`is_open_post_slider`), false)
+  const isOpenPostSlider = store.reactive(addPrefix(`is_open_post_slider`), true)
 
   // 是否打开本地文件夹面板
   const isOpenFolderPanel = store.reactive(addPrefix(`is_open_folder_panel`), false)
@@ -116,6 +116,10 @@ export const useUIStore = defineStore(`ui`, () => {
     failCount?: number
   } | null>(null)
 
+  // 是否展示新增内容对话框
+  const isOpenAddPostDialog = ref(false)
+  const toggleAddPostDialog = useToggle(isOpenAddPostDialog)
+
   // 是否展示模板管理对话框
   const isShowTemplateDialog = ref(false)
   const toggleShowTemplateDialog = useToggle(isShowTemplateDialog)
@@ -168,6 +172,10 @@ export const useUIStore = defineStore(`ui`, () => {
   }
 
   onMounted(() => {
+    // 强制侧边栏默认打开（解决 localStorage 旧值覆盖新默认值问题）
+    // 首次启动后用户可手动关闭，关闭状态会持久化
+    isOpenPostSlider.value = true
+
     handleResize()
     window.addEventListener(`resize`, handleResize)
   })
@@ -212,6 +220,8 @@ export const useUIStore = defineStore(`ui`, () => {
     localImageUploadData,
     isShowTemplateDialog,
     toggleShowTemplateDialog,
+    isOpenAddPostDialog,
+    toggleAddPostDialog,
     isShowComponentDialog,
     toggleShowComponentDialog,
     aiDialogVisible,

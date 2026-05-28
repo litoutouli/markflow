@@ -94,9 +94,11 @@ const cssEditorPanelRef = ref<InstanceType<typeof ResizablePanel> | null>(null)
 const rightSliderPanelRef = ref<InstanceType<typeof ResizablePanel> | null>(null)
 
 function redistributePanelSizes() {
+  const postSliderTarget = !isMobile.value && isOpenPostSlider.value ? 15 : 0
+  const folderTarget = !isMobile.value && isOpenFolderPanel.value ? 15 : 0
   const cssTarget = !isMobile.value && uiStore.isShowCssEditor ? 25 : 0
   const rightTarget = !isMobile.value && isOpenRightSlider.value ? 30 : 0
-  const contentSpace = 100 - cssTarget - rightTarget
+  const contentSpace = 100 - postSliderTarget - folderTarget - cssTarget - rightTarget
 
   const mode = viewMode.value
   if (mode === `edit`) {
@@ -126,6 +128,14 @@ watch(() => uiStore.isShowCssEditor, () => {
 })
 
 watch(isOpenRightSlider, () => {
+  nextTick(redistributePanelSizes)
+})
+
+watch(isOpenPostSlider, () => {
+  nextTick(redistributePanelSizes)
+})
+
+watch(isOpenFolderPanel, () => {
   nextTick(redistributePanelSizes)
 })
 

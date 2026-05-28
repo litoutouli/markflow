@@ -9,7 +9,7 @@ import { store } from '@/utils/storage'
 
 const confirmStore = useConfirmStore()
 const uiStore = useUIStore()
-const { isMobile, isOpenPostSlider } = storeToRefs(uiStore)
+const { isMobile, isOpenPostSlider, isOpenAddPostDialog } = storeToRefs(uiStore)
 
 const postStore = usePostStore()
 const { posts } = storeToRefs(postStore)
@@ -35,9 +35,8 @@ watch(isMobile, () => {
 
 /* ============ 新增内容 ============ */
 const parentId = ref<string | null>(null)
-const isOpenAddDialog = ref(false)
 const addPostInputVal = ref(``)
-watch(isOpenAddDialog, (o) => {
+watch(isOpenAddPostDialog, (o) => {
   if (o) {
     addPostInputVal.value = ``
     parentId.value = null
@@ -45,7 +44,7 @@ watch(isOpenAddDialog, (o) => {
 })
 
 function openAddPostDialog(id: string) {
-  isOpenAddDialog.value = true
+  isOpenAddPostDialog.value = true
   nextTick(() => {
     parentId.value = id
   })
@@ -55,7 +54,9 @@ function addPost() {
   if (!addPostInputVal.value.trim())
     return toast.error(`内容标题不可为空`)
   postStore.addPost(addPostInputVal.value.trim(), parentId.value)
-  isOpenAddDialog.value = false
+  isOpenAddPostDialog.value = false
+  // 新建后强制显示内容管理侧边栏，避免用户以为文件丢失
+  isOpenPostSlider.value = true
   toast.success(`内容新增成功`)
 }
 
@@ -624,7 +625,7 @@ function handleDragEnd() {
         <!-- 新增 -->
         <button
           class="inline-flex items-center justify-center size-7 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors duration-150"
-          @click="isOpenAddDialog = true"
+          @click="isOpenAddPostDialog = true"
         >
           <Plus class="size-4" />
         </button>
@@ -912,7 +913,7 @@ function handleDragEnd() {
   </div>
 
   <!-- 新增弹窗 -->
-  <Dialog v-model:open="isOpenAddDialog">
+  <Dialog v-model:open="isOpenAddPostDialog">
     <DialogContent>
       <DialogHeader>
         <DialogTitle>新增内容</DialogTitle>
