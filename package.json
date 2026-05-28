@@ -1,0 +1,49 @@
+{
+  "name": "markflow",
+  "type": "module",
+  "main": "desktop/electron/main.cjs",
+  "version": "0.1.0",
+  "private": false,
+  "description": "MarkFlow | Markdown 内容生产与多格式导出桌面工作台",
+  "author": "litoutouli",
+  "license": "MIT",
+  "homepage": "https://github.com/litoutouli/markflow",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litoutouli/markflow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/litoutouli/markflow/issues"
+  },
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "scripts": {
+    "start": "pnpm web dev",
+    "web": "pnpm --filter @md/web",
+    "desktop:dev": "cross-env SERVER_ENV=DESKTOP pnpm web dev",
+    "desktop:build:web": "cross-env SERVER_ENV=DESKTOP pnpm web build",
+    "desktop:start": "pnpm desktop:build:web && electron .",
+    "desktop:pack": "pnpm desktop:build:web && electron-builder --mac dir",
+    "lint": "eslint . --fix",
+    "type-check": "pnpm --filter @md/web exec vue-tsc --noEmit",
+    "inspector": "pnpx node-modules-inspector"
+  },
+  "dependencies": {
+    "@codemirror/state": "6.6.0",
+    "@codemirror/view": "6.43.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "9.0.0",
+    "@types/node": "^25.9.1",
+    "archiver": "^8.0.0",
+    "cross-env": "^10.1.0",
+    "electron": "^42.3.0",
+    "electron-builder": "^26.8.1",
+    "eslint": "^10.4.0",
+    "eslint-plugin-format": "^2.0.1",
+    "npm-run-all2": "^9.0.1",
+    "prettier": "2.8.8",
+    "typescript": "~6.0.3"
+  }
+}
