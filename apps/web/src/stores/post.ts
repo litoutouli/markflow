@@ -14,6 +14,11 @@ const LEGACY_DEFAULT_MARKERS = [
 ]
 const OLD_MARKFLOW_GITHUB_LINK = `https://github.com/litoutouli/tab-cove`
 const NEW_MARKFLOW_GITHUB_LINK = `https://github.com/litoutouli`
+const OLD_MARKFLOW_DEFAULT_MARKERS = [
+  `# MarkFlow：Markdown 内容排版工作台`,
+  `面试作品集内容`,
+  `AI demo`,
+]
 
 /**
  * 文章管理 Store
@@ -47,7 +52,7 @@ export const usePostStore = defineStore(`post`, () => {
       && LEGACY_DEFAULT_MARKERS.every(marker => firstPost.content.includes(marker))
 
     if (!isLegacyDefaultPost)
-      return migrateMarkFlowDefaultLink(firstPost)
+      return migrateMarkFlowDefaultPost(firstPost)
 
     firstPost.title = DEFAULT_POST_TITLE
     firstPost.content = DEFAULT_CONTENT
@@ -57,7 +62,19 @@ export const usePostStore = defineStore(`post`, () => {
     firstPost.updateDatetime = new Date()
   }
 
-  function migrateMarkFlowDefaultLink(firstPost: Post) {
+  function migrateMarkFlowDefaultPost(firstPost: Post) {
+    const isOldMarkFlowDefaultPost = firstPost.title === DEFAULT_POST_TITLE
+      && OLD_MARKFLOW_DEFAULT_MARKERS.every(marker => firstPost.content.includes(marker))
+
+    if (isOldMarkFlowDefaultPost) {
+      firstPost.content = DEFAULT_CONTENT
+      firstPost.history = [
+        { datetime: new Date().toLocaleString(`zh-cn`), content: DEFAULT_CONTENT },
+      ]
+      firstPost.updateDatetime = new Date()
+      return
+    }
+
     const isMarkFlowDefaultPost = firstPost.title === DEFAULT_POST_TITLE
       && firstPost.content.includes(`# MarkFlow：Markdown 内容排版工作台`)
       && firstPost.content.includes(OLD_MARKFLOW_GITHUB_LINK)
@@ -65,13 +82,15 @@ export const usePostStore = defineStore(`post`, () => {
     if (!isMarkFlowDefaultPost)
       return
 
-    firstPost.content = firstPost.content.replaceAll(OLD_MARKFLOW_GITHUB_LINK, NEW_MARKFLOW_GITHUB_LINK)
+    firstPost.content = firstPost.content.split(OLD_MARKFLOW_GITHUB_LINK).join(NEW_MARKFLOW_GITHUB_LINK)
     firstPost.history = firstPost.history?.map(item => ({
       ...item,
-      content: item.content.replaceAll(OLD_MARKFLOW_GITHUB_LINK, NEW_MARKFLOW_GITHUB_LINK),
+      content: item.content.split(OLD_MARKFLOW_GITHUB_LINK).join(NEW_MARKFLOW_GITHUB_LINK),
     })) ?? []
     firstPost.updateDatetime = new Date()
   }
+
+  Promise.resolve().then(migrateLegacyDefaultPost)
 
   // 在补齐 id 后，若 currentPostId 无效 ➜ 自动指向第一篇
   onBeforeMount(() => {
@@ -84,8 +103,6 @@ export const usePostStore = defineStore(`post`, () => {
         updateDatetime: post.updateDatetime ?? new Date(now + index),
       }
     })
-
-    migrateLegacyDefaultPost()
 
     // 兼容：如果本地没有 currentPostId，或指向的文章已不存在
     if (!currentPostId.value || !posts.value.some(p => p.id === currentPostId.value)) {

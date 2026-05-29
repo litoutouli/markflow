@@ -1,11 +1,29 @@
 import { addPrefix } from '@/utils'
 import { store } from '@/utils/storage'
 
+const postSliderStorageKey = addPrefix(`is_open_post_slider`)
+const postSliderDefaultOpenMigrationKey = addPrefix(`post_slider_default_open_migrated`)
+
+function migratePostSliderDefaultOpen() {
+  try {
+    if (localStorage.getItem(postSliderDefaultOpenMigrationKey) === `1`)
+      return
+
+    localStorage.setItem(postSliderStorageKey, JSON.stringify(true))
+    localStorage.setItem(postSliderDefaultOpenMigrationKey, `1`)
+  }
+  catch (error) {
+    console.error(`[UI] Failed to migrate post slider default open:`, error)
+  }
+}
+
 /**
  * UI 状态 Store
  * 负责管理全局 UI 状态，包括深色模式、侧边栏、对话框等
  */
 export const useUIStore = defineStore(`ui`, () => {
+  migratePostSliderDefaultOpen()
+
   // ==================== 全局 UI 状态 ====================
   // 是否开启深色模式
   const isDark = useDark()
@@ -26,7 +44,7 @@ export const useUIStore = defineStore(`ui`, () => {
   const isOpenRightSlider = store.reactive(addPrefix(`is_open_right_slider`), false)
 
   // 是否打开文章列表滑块
-  const isOpenPostSlider = store.reactive(addPrefix(`is_open_post_slider`), true)
+  const isOpenPostSlider = store.reactive(postSliderStorageKey, true)
 
   // 是否打开本地文件夹面板
   const isOpenFolderPanel = store.reactive(addPrefix(`is_open_folder_panel`), false)
@@ -172,10 +190,6 @@ export const useUIStore = defineStore(`ui`, () => {
   }
 
   onMounted(() => {
-    // 强制侧边栏默认打开（解决 localStorage 旧值覆盖新默认值问题）
-    // 首次启动后用户可手动关闭，关闭状态会持久化
-    isOpenPostSlider.value = true
-
     handleResize()
     window.addEventListener(`resize`, handleResize)
   })
